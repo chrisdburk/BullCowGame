@@ -35,7 +35,7 @@ int32 main()
 //introduce the game
 void printIntro() 
 {
-	std::cout << "Welcome to Bulls and Cows, a fun word game" << std::endl;
+	std::cout << "\n\nWelcome to Bulls and Cows, a fun word game" << std::endl;
 	std::cout << "Can you guess the " << FBCGame.getHiddenWordLength() << " letter isogram that I am thinking of?" << std::endl;
 	std::cout << std::endl;
 	return;
@@ -45,7 +45,9 @@ void playGame() {
 	FBCGame.reset();
 	int32 MaxTries = FBCGame.GetMaxTries();
 
-	for (int32 i = 0; i < MaxTries; i++) { //TODO change from for to while loop once we validate tries
+	//Loop asking for guesses while the game is NOT won
+	//and there are still tries remaining
+	while(!FBCGame.isGameWon() && (FBCGame.getCurrentTry() <= FBCGame.GetMaxTries())) { //TODO change from for to while loop once we validate tries
 		FText Guess = getGuess(); //TODO make loop checking valid
 
 		FBullCowCount BullCowCount = FBCGame.SubmitGuess(Guess);

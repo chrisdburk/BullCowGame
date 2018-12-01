@@ -19,13 +19,14 @@ enum class EGuessStatus {
 class FBullCowGame {
 	public:
 		FBullCowGame();
+		void reset();
 
 		int32 GetMaxTries() const;
 		int32 getCurrentTry() const;
 		int32 getHiddenWordLength() const;
 		EGuessStatus CheckGuessValidity(FString) const;
 		bool isGameWon() const;
-		void reset(); //TODO make a more rich return value
+
 
 		FBullCowCount SubmitGuess(FString);
 		// counts bulls and cows and increasing turn number assuming valid guess
@@ -34,5 +35,6 @@ class FBullCowGame {
 	private:
 		int32 MyCurrentTry;
 		int32 MyMaxTries;
+		bool bGameWon;
 		FString MyHiddenWord;
 };

@@ -5,11 +5,45 @@ void FBullCowGame::reset()
 {
 	constexpr int32 MAX_TRIES = 8;
 	const FString HIDDEN_WORD = "ant";
-	MyMaxTries = MAX_TRIES;
+
+	bGameWon = false;
 	MyCurrentTry = 1;
+	MyMaxTries = MAX_TRIES;
 	MyHiddenWord = HIDDEN_WORD;
 	return;
 }
+
+FBullCowGame::FBullCowGame()
+{
+	reset();
+}
+
+int32 FBullCowGame::GetMaxTries() const { return MyMaxTries; }
+
+int32 FBullCowGame::getCurrentTry() const {	return MyCurrentTry; }
+
+int32 FBullCowGame::getHiddenWordLength() const { return MyHiddenWord.length(); }
+
+bool FBullCowGame::isGameWon() const { return bGameWon; }
+
+EGuessStatus FBullCowGame::CheckGuessValidity(FString Guess) const
+{
+	if (false) //If Guess isn't an isogram
+	{
+		return EGuessStatus::Not_Isogram;
+	}
+	else if (false)//If guess isn't lowercase
+	{
+		return EGuessStatus::Not_Lowercase;
+	}
+	else if (Guess.length() != getHiddenWordLength())//If guess length is wrong
+	{
+		return EGuessStatus::Wrong_Length;
+	}
+	else
+		return EGuessStatus::OK; //return okay
+}
+
 //Receives a valid guess, increases turn and returns count
 FBullCowCount FBullCowGame::SubmitGuess(FString Guess)
 {
@@ -38,48 +72,6 @@ FBullCowCount FBullCowGame::SubmitGuess(FString Guess)
 			}
 		}
 	}
+	if (BullCowCount.Bulls == getHiddenWordLength()) { bGameWon = true; }
 	return BullCowCount;
-}
-
-FBullCowGame::FBullCowGame()
-{
-	reset();
-}
-
-int32 FBullCowGame::GetMaxTries() const
-{
-	return MyMaxTries;
-}
-
-int32 FBullCowGame::getCurrentTry() const
-{
-	return MyCurrentTry;
-}
-
-int32 FBullCowGame::getHiddenWordLength() const
-{
-	return MyHiddenWord.length();
-}
-
-bool FBullCowGame::isGameWon() const
-{
-	return false;
-}
-
-EGuessStatus FBullCowGame::CheckGuessValidity(FString Guess) const
-{
-	if (false) //If Guess isn't an isogram
-	{
-		return EGuessStatus::Not_Isogram;
-	}
-	else if (false)//If guess isn't lowercase
-	{
-		return EGuessStatus::Not_Lowercase;
-	}
-	else if (Guess.length() != getHiddenWordLength())//If guess length is wrong
-	{
-		return EGuessStatus::Wrong_Length;
-	}
-	else
-		return EGuessStatus::OK; //return okay
 }
