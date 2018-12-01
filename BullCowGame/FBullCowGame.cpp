@@ -1,5 +1,8 @@
 #include "pch.h"
 #include "FBullCowGame.h"
+#include<map>
+
+#define TMAP std::map
 
 void FBullCowGame::reset()
 {
@@ -28,7 +31,7 @@ bool FBullCowGame::isGameWon() const { return bGameWon; }
 
 EGuessStatus FBullCowGame::CheckGuessValidity(FString Guess) const
 {
-	if (false) //If Guess isn't an isogram
+	if (!isIsoGram(Guess)) //If Guess isn't an isogram
 	{
 		return EGuessStatus::Not_Isogram; //TODO Write function
 	}
@@ -74,4 +77,17 @@ FBullCowCount FBullCowGame::SubmitGuess(FString Guess)
 	}
 	if (BullCowCount.Bulls == getHiddenWordLength()) { bGameWon = true; }
 	return BullCowCount;
+}
+
+bool FBullCowGame::isIsoGram(FString Guess) const
+{
+	//treat 0 and 1 letter strings as isograms
+
+	//loop through all letters
+		//if letter is in map
+			//word is not an isogram
+		//if not
+			//add letter to map
+
+	return true; //for example in cases where \0 is entered
 }

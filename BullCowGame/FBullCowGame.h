@@ -37,4 +37,6 @@ class FBullCowGame {
 		int32 MyMaxTries;
 		bool bGameWon;
 		FString MyHiddenWord;
+
+		bool isIsoGram(FString) const;
 };
