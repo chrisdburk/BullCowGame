@@ -14,6 +14,7 @@ using int32 = int;
 void printIntro();
 void playGame();
 FText getGuess();
+void PrintGameSummary(bool);
 bool AskToPlayAgain();
 
 FBullCowGame FBCGame; //Instantiate
@@ -47,16 +48,16 @@ void playGame() {
 
 	//Loop asking for guesses while the game is NOT won
 	//and there are still tries remaining
-	while(!FBCGame.isGameWon() && (FBCGame.getCurrentTry() <= FBCGame.GetMaxTries())) { //TODO change from for to while loop once we validate tries
-		FText Guess = getGuess(); //TODO make loop checking valid
+	while(!FBCGame.isGameWon() && (FBCGame.getCurrentTry() <= FBCGame.GetMaxTries())) {
+		FText Guess = getGuess();
 
 		FBullCowCount BullCowCount = FBCGame.SubmitGuess(Guess);
 		std::cout << "Bulls = " << BullCowCount.Bulls;
 		std::cout << ".  Cows = " << BullCowCount.Cows << "\n\n";
 
 		std::cout << "You guessed:  " << Guess << std::endl;
-		//TODO Add a game summary
 	}
+	PrintGameSummary(FBCGame.isGameWon());
 	return;
 }
 
@@ -93,9 +94,18 @@ FText getGuess()
 	return guess;
 }
 
+void PrintGameSummary(bool bGameWon) {
+	if (bGameWon)
+	{
+		std::cout << "CONGRATS!  YOU WIN!\n";
+	}else {
+		std::cout << "Better luck next time.\n";
+	}
+}
+
 bool AskToPlayAgain()
 {
-	std::cout << "Do you want to play again? (y/n)";
+	std::cout << "Do you want to play again? with the same hidden word(y/n)";
 	FText response = "";
 	std::getline(std::cin, response);
 
