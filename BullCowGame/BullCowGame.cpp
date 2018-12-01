@@ -75,13 +75,13 @@ FText getGuess()
 		switch (Status)
 		{
 		case EGuessStatus::Not_Isogram:
-			std::cout << "please enter a word without repeating letters";
+			std::cout << "please enter a word without repeating letters\n\n";
 			break;
 		case EGuessStatus::Wrong_Length:
-			std::cout << "please enter a " << FBCGame.getHiddenWordLength() << " letter word";
+			std::cout << "please enter a " << FBCGame.getHiddenWordLength() << " letter word\n\n";
 			break;
 		case EGuessStatus::Not_Lowercase:
-			std::cout << "please enter all lowercase letters";
+			std::cout << "please enter all lowercase letters\n\n";
 			break;
 		default:
 			//assume guess is valid
