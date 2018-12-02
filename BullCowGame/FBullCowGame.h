@@ -1,6 +1,12 @@
+/*
+Contains the game logic (no views or user interaction)
+Game is a guess the word game.
+*/
+
 #pragma once
 #include <string>
 
+//Make syntax Unreal friendly
 using FString = std::string;
 using int32 = int;
 
@@ -21,12 +27,13 @@ class FBullCowGame {
 		FBullCowGame();
 		void reset();
 
-		int32 GetMaxTries() const;
+
 		int32 getCurrentTry() const;
 		int32 getHiddenWordLength() const;
 		EGuessStatus CheckGuessValidity(FString) const;
 		bool isGameWon() const;
 
+		int32 GetMaxTries() const;
 
 		FBullCowCount SubmitGuess(FString);
 		// counts bulls and cows and increasing turn number assuming valid guess
@@ -34,7 +41,6 @@ class FBullCowGame {
 
 	private:
 		int32 MyCurrentTry;
-		int32 MyMaxTries;
 		bool bGameWon;
 		FString MyHiddenWord;
 

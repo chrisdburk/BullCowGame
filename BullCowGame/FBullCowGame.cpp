@@ -1,3 +1,5 @@
+#pragma once
+
 #include "pch.h"
 #include "FBullCowGame.h"
 #include<map>
@@ -11,17 +13,11 @@ void FBullCowGame::reset()
 
 	bGameWon = false;
 	MyCurrentTry = 1;
-	MyMaxTries = MAX_TRIES;
 	MyHiddenWord = HIDDEN_WORD;
 	return;
 }
 
-FBullCowGame::FBullCowGame()
-{
-	reset();
-}
-
-int32 FBullCowGame::GetMaxTries() const { return MyMaxTries; }
+FBullCowGame::FBullCowGame(){ reset(); } //default constructor
 
 int32 FBullCowGame::getCurrentTry() const {	return MyCurrentTry; }
 
@@ -33,18 +29,25 @@ EGuessStatus FBullCowGame::CheckGuessValidity(FString Guess) const
 {
 	if (!isIsoGram(Guess)) //If Guess isn't an isogram
 	{
-		return EGuessStatus::Not_Isogram; //TODO Write function
+		return EGuessStatus::Not_Isogram;
 	}
 	else if (!isLowerCase(Guess))//If guess isn't lowercase
 	{
-		return EGuessStatus::Not_Lowercase; //TODO Write function
+		return EGuessStatus::Not_Lowercase;
 	}
 	else if (Guess.length() != getHiddenWordLength())//If guess length is wrong
 	{
 		return EGuessStatus::Wrong_Length;
 	}
 	else
-		return EGuessStatus::OK; //return okay
+		return EGuessStatus::OK; 
+}
+
+int32 FBullCowGame::GetMaxTries() const 
+{ 
+	TMAP<int32, int32> WordLengthToMaxTries{ {3,4}, {4,7}, {5,10}, {6,15}, {7,20} };
+	
+	return WordLengthToMaxTries[MyHiddenWord.length()]; 
 }
 
 //Receives a valid guess, increases turn and returns count
@@ -91,10 +94,10 @@ bool FBullCowGame::isIsoGram(FString Guess) const
 		Letter = tolower(Letter);
 
 		if (LetterSeen[Letter]) {//if letter is in map
-			return false; //word is not an isogram
+			return false; 
 		}
 		else { //if not
-			LetterSeen[Letter] = true;//add letter to map
+			LetterSeen[Letter] = true;
 		}
 	}
 

@@ -1,13 +1,17 @@
 // BullCowGame.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 
-/**/
+/*
+
+*/
+#pragma once
 
 #include "pch.h"
 #include <iostream>
 #include <string>
 #include "FBullCowGame.h"
 
+//Make syntax Unreal friendly
 using FText = std::string;
 using int32 = int;
 
@@ -36,8 +40,16 @@ int32 main()
 //introduce the game
 void printIntro() 
 {
-	std::cout << "\n\nWelcome to Bulls and Cows, a fun word game" << std::endl;
-	std::cout << "Can you guess the " << FBCGame.getHiddenWordLength() << " letter isogram that I am thinking of?" << std::endl;
+	std::cout << "Welcome to Bulls and Cows, a fun word game.\n";
+	std::cout << std::endl;
+	std::cout << "          }   {         ___ " << std::endl;
+	std::cout << "          (o o)        (o o) " << std::endl;
+	std::cout << "   /-------\\ /          \\ /-------\\ " << std::endl;
+	std::cout << "  / | BULL |O            O| COW  | \\ " << std::endl;
+	std::cout << " *  |-,--- |              |------|  * " << std::endl;
+	std::cout << "    ^      ^              ^      ^ " << std::endl;
+	std::cout << "Can you guess the " << FBCGame.getHiddenWordLength();
+	std::cout << " letter isogram I'm thinking of?\n";
 	std::cout << std::endl;
 	return;
 }
@@ -54,8 +66,6 @@ void playGame() {
 		FBullCowCount BullCowCount = FBCGame.SubmitGuess(Guess);
 		std::cout << "Bulls = " << BullCowCount.Bulls;
 		std::cout << ".  Cows = " << BullCowCount.Cows << "\n\n";
-
-		std::cout << "You guessed:  " << Guess << std::endl;
 	}
 	PrintGameSummary(FBCGame.isGameWon());
 	return;
@@ -67,7 +77,7 @@ FText getGuess()
 	FText guess = "";
 	EGuessStatus Status = EGuessStatus::Not_Isogram;
 	do {
-		std::cout << "Try " << FBCGame.getCurrentTry() << ":  Please enter your guess:  ";
+		std::cout << "Try " << FBCGame.getCurrentTry() << " of " << FBCGame.GetMaxTries() << ":  Please enter your guess:  ";
 		std::getline(std::cin, guess);
 
 		Status = FBCGame.CheckGuessValidity(guess);
