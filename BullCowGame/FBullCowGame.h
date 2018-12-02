@@ -39,4 +39,5 @@ class FBullCowGame {
 		FString MyHiddenWord;
 
 		bool isIsoGram(FString) const;
+		bool isLowerCase(FString) const;
 };
